@@ -67,10 +67,10 @@ export const Login = () => {
         </InputContainer>
 
         <Button type="submit">Entrar</Button>
+        <span>
+          Não possui conta? <Link to="/register">Clique aqui.</Link>
+        </span>
       </Form>
-      <p>
-        Não possui conta? <Link to="/register">Clique aqui.</Link>
-      </p>
     </Container>
   );
 };
