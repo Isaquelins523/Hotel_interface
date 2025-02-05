@@ -20,11 +20,9 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
-  color: #fff;
+  color: black;
   font-size: 2rem;
   text-align: center;
-  position: absolute;
-  top: 20px;
 `;
 
 export const Form = styled.form`
@@ -79,8 +77,4 @@ export const Button = styled.button`
   &:active {
     opacity: 0.9;
   }
-`;
-
-export const LinkRegister = styled.p`
-  color: black;
 `;

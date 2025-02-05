@@ -53,12 +53,8 @@ export const Register = () => {
 
   return (
     <Container>
-      <Title>
-        Crie sua conta agora mesmo!
-        <br />
-        Preencha os dados abaixo.
-      </Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <Title>Register</Title>
         <InputContainer>
           <label>Nome</label>
           <input type="text" {...register("name")} />
@@ -78,10 +74,11 @@ export const Register = () => {
         </InputContainer>
 
         <Button type="submit">Cadastrar</Button>
+
+        <span>
+          Já possui conta? <Link to="/login">Clique aqui.</Link>
+        </span>
       </Form>
-      <p>
-        Não possui conta? <Link to="/login">Clique aqui.</Link>
-      </p>
     </Container>
   );
 };

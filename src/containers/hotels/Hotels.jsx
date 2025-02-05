@@ -1,5 +1,13 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import {
+  Container,
+  Title,
+  HotelList,
+  HotelItem,
+  LoadingMessage,
+  NoHotelsMessage,
+} from "./styles";
 
 export const Hotels = () => {
   const [hotels, setHotels] = useState([]);
@@ -21,26 +29,26 @@ export const Hotels = () => {
   }, []);
 
   return (
-    <div>
-      <h1>Lista de Hotéis</h1>
+    <Container>
+      <Title>Lista de Hotéis</Title>
 
       {loading ? (
-        <p>Carregando hotéis...</p>
+        <LoadingMessage>Carregando hotéis...</LoadingMessage>
       ) : hotels.length === 0 ? (
-        <p>Nenhum hotel encontrado.</p>
+        <NoHotelsMessage>Nenhum hotel encontrado.</NoHotelsMessage>
       ) : (
-        <ul>
+        <HotelList>
           {hotels.map((hotel) => (
-            <li key={hotel._id}>
+            <HotelItem key={hotel._id}>
               <strong>{hotel.name}</strong> - {hotel.location} - R${" "}
               {hotel.price}
               <br />
               <small>Publicado por: {hotel.user?.name || "Desconhecido"}</small>
-            </li>
+            </HotelItem>
           ))}
-        </ul>
+        </HotelList>
       )}
-    </div>
+    </Container>
   );
 };
 

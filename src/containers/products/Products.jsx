@@ -29,32 +29,45 @@ export const Products = () => {
   });
 
   const onSubmit = async (data) => {
+    const token = localStorage.getItem("token"); // Obtém o token do localStorage
+
+    if (!token) {
+      toast.error("Erro: Usuário não autenticado!");
+      return;
+    }
+
     try {
       await toast.promise(
-        api.post("/hotels", {
-          name: data.name,
-          location: data.location,
-          price: data.price,
-        }),
+        api.post(
+          "/hotels",
+          {
+            name: data.name,
+            location: data.location,
+            price: data.price,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`, // Adiciona o token no header
+            },
+          }
+        ),
         {
           pending: "Verificando seus dados",
           success: "Hotel Cadastrado com Sucesso 👌",
-          error: "Dados Incorretos🤯",
+          error: "Erro ao cadastrar hotel 🤯",
         }
       );
     } catch (err) {
-      toast.error(`Erro: ${err.message || "Tente novamente mais tarde."}`);
+      toast.error(
+        `Erro: ${err.response?.data?.message || "Tente novamente mais tarde."}`
+      );
     }
   };
 
   return (
     <Container>
-      <Title>
-        Olá seja Bem-Vindo!
-        <br />
-        Cadastre seu Hotel aqui!
-      </Title>
       <Form onSubmit={handleSubmit(onSubmit)}>
+        <Title>Cadastrar Hotel</Title>
         <InputContainer>
           <label>Nome</label>
           <input type="text" {...register("name")} />
