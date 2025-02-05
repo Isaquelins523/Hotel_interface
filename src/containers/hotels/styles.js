@@ -56,3 +56,11 @@ export const NoHotelsMessage = styled.p`
   color: #d9534f;
   font-weight: bold;
 `;
+
+export const HotelImage = styled.img`
+  width: 120px;
+  height: 80px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  object-fit: cover;
+`;

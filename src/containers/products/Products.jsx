@@ -15,8 +15,15 @@ export const Products = () => {
       location: yup.string().required("A localização é obrigatória"),
       price: yup
         .number()
-        .min(3, "O preço deve ter pelo menos 3 digitos")
+        .min(3, "O preço deve ter pelo menos 3 dígitos")
         .required("Digite um valor"),
+      image: yup
+        .mixed()
+        .test(
+          "fileRequired",
+          "A imagem é obrigatória",
+          (value) => !!value?.length
+        ),
     })
     .required();
 
@@ -36,21 +43,20 @@ export const Products = () => {
       return;
     }
 
+    const formData = new FormData();
+    formData.append("name", data.name);
+    formData.append("location", data.location);
+    formData.append("price", data.price);
+    formData.append("image", data.image[0]); // O arquivo de imagem selecionado
+
     try {
       await toast.promise(
-        api.post(
-          "/hotels",
-          {
-            name: data.name,
-            location: data.location,
-            price: data.price,
+        api.post("/hotels", formData, {
+          headers: {
+            Authorization: `Bearer ${token}`, // Adiciona o token no header
+            "Content-Type": "multipart/form-data", // Necessário para upload de arquivos
           },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`, // Adiciona o token no header
-            },
-          }
-        ),
+        }),
         {
           pending: "Verificando seus dados",
           success: "Hotel Cadastrado com Sucesso 👌",
@@ -63,7 +69,6 @@ export const Products = () => {
       );
     }
   };
-
   return (
     <Container>
       <Form onSubmit={handleSubmit(onSubmit)}>
@@ -84,6 +89,12 @@ export const Products = () => {
           <label>Preço</label>
           <input type="number" {...register("price")} />
           <p>{errors?.price?.message}</p>
+        </InputContainer>
+
+        <InputContainer>
+          <label>Imagem</label>
+          <input type="file" {...register("image")} />
+          <p>{errors?.image?.message}</p>
         </InputContainer>
 
         <Button type="submit">Cadastrar</Button>

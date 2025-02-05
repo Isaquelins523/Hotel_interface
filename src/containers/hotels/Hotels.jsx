@@ -5,6 +5,7 @@ import {
   Title,
   HotelList,
   HotelItem,
+  HotelImage,
   LoadingMessage,
   NoHotelsMessage,
 } from "./styles";
@@ -40,6 +41,13 @@ export const Hotels = () => {
         <HotelList>
           {hotels.map((hotel) => (
             <HotelItem key={hotel._id}>
+              {/* Exibe a imagem do hotel */}
+              {hotel.imageUrl && (
+                <HotelImage
+                  src={`http://localhost:5000${hotel.imageUrl}`}
+                  alt={`Imagem do hotel ${hotel.name}`}
+                />
+              )}
               <strong>{hotel.name}</strong> - {hotel.location} - R${" "}
               {hotel.price}
               <br />
