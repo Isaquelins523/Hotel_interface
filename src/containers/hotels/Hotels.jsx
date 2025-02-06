@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { api } from "../../services/api";
+import { toast } from "react-toastify";
 import {
   Container,
   Title,
   HotelList,
   HotelItem,
   HotelImage,
+  DeleteButton,
   LoadingMessage,
   NoHotelsMessage,
 } from "./styles";
@@ -29,6 +31,34 @@ export const Hotels = () => {
     fetchHotels();
   }, []);
 
+  const handleDelete = async (hotelId) => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      toast.error("Erro: Usuário não autenticado!");
+      return;
+    }
+
+    if (!window.confirm("Tem certeza que deseja excluir este hotel?")) {
+      return;
+    }
+
+    try {
+      await api.delete(`/hotels/${hotelId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Remove o hotel deletado da lista
+      setHotels(hotels.filter((hotel) => hotel._id !== hotelId));
+
+      toast.success("Hotel excluído com sucesso!");
+    } catch (error) {
+      toast.error("Erro ao excluir o hotel");
+      console.error(error);
+    }
+  };
   return (
     <Container>
       <Title>Lista de Hotéis</Title>
@@ -41,7 +71,6 @@ export const Hotels = () => {
         <HotelList>
           {hotels.map((hotel) => (
             <HotelItem key={hotel._id}>
-              {/* Exibe a imagem do hotel */}
               {hotel.imageUrl && (
                 <HotelImage
                   src={`http://localhost:5000${hotel.imageUrl}`}
@@ -52,6 +81,9 @@ export const Hotels = () => {
               {hotel.price}
               <br />
               <small>Publicado por: {hotel.user?.name || "Desconhecido"}</small>
+              <DeleteButton onClick={() => handleDelete(hotel._id)}>
+                Excluir
+              </DeleteButton>
             </HotelItem>
           ))}
         </HotelList>

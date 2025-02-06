@@ -51,7 +51,7 @@ export const Login = () => {
       localStorage.setItem("token", token);
 
       // Redireciona para a página de hotéis após o login
-      navigate("/list/hotels");
+      navigate("/");
     } catch (err) {
       toast.error(
         `Erro: ${err.response?.data?.message || "Tente novamente mais tarde."}`

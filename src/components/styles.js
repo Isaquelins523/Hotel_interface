@@ -7,6 +7,7 @@ export const Nav = styled.nav`
   padding: 1rem 2rem;
   background-color: #333;
   color: white;
+  background-color: #4682b4;
 `;
 
 export const NavLinks = styled.div`

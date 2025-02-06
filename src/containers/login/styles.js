@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import backgroud from "../../assets/backgroundHotel.svg";
+import backgroud from "../../assets/hotelDev.jpg";
 
 export const Container = styled.div`
   background-image: url(${backgroud});

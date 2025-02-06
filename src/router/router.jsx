@@ -16,7 +16,7 @@ export default function Router() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/hotels" element={<Products />} />
-        <Route path="/list/hotels" element={<Hotels />} />
+        <Route path="/" element={<Hotels />} />
       </Routes>
     </>
   );
