@@ -53,7 +53,7 @@ Cada parte do projeto pode ser executada separadamente.
 
 1. Clone o repositório do frontend:
    ```sh
-   git clone <URL_DO_REPO_FRONTEND>
+   git clone <https://github.com/Isaquelins523/Hotel_interface.git>
    ```
 2. Acesse a pasta do frontend:
    ```sh
