@@ -33,7 +33,7 @@ Cada parte do projeto pode ser executada separadamente.
 
 1. Clone o repositório do backend:
    ```sh
-   git clone <URL_DO_REPO_BACKEND>
+   git clone <https://github.com/Isaquelins523/Hotel_system.git>
    ```
 2. Acesse a pasta do backend:
    ```sh
